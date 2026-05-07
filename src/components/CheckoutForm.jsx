@@ -56,7 +56,9 @@ function CheckoutForm({ totalPrice }) {
 
                 dispatch(clearCart());
                 setMessage("Payment successful. Order placed successfully.");
-                navigate("/")
+                setTimeout(() => {
+                    navigate("/profile")
+                }, 1500)
             }
         } catch (error) {
             setErrorMessage(error.message);
