@@ -1,5 +1,3 @@
-
-import { useEffect, useState } from "react";
 import {
     Box,
     Container,
@@ -9,35 +7,39 @@ import {
     CircularProgress,
     Paper,
 } from "@mui/material";
+import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+
 import { addToCart } from "../Redux/cart/cartSlice";
-import { getProductById } from "../firebase/service/productsService";
+import { fetchProductById, setSelectedProduct, clearSelectedProduct } from "../Redux/products/productsSlice";
 
 function ProductDetails() {
     const { id } = useParams();
-    const [product, setProduct] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState("");
     const dispatch = useDispatch();
 
-    const handleAddtoCart = () => {
-        dispatch(addToCart(product))
-    }
+    const { products, selectedProduct, loading, error } = useSelector(
+        (state) => state.products
+    );
+
     useEffect(() => {
-        async function loadProduct() {
-            try {
-                const data = await getProductById(id);
-                setProduct(data);
-            } catch (err) {
-                setError(err.message);
-            } finally {
-                setLoading(false);
-            }
+        const existingProduct = products.find((product) => product.id === id);
+
+        if (existingProduct) {
+            dispatch(setSelectedProduct(existingProduct));
+        } else {
+            dispatch(fetchProductById(id));
         }
 
-        loadProduct();
-    }, [id]);
+        return () => {
+            dispatch(clearSelectedProduct());
+        };
+    }, [dispatch, id, products]);
+
+    const handleAddtoCart = () => {
+        dispatch(addToCart(selectedProduct));
+    };
+
 
     if (loading) {
         return (
@@ -47,7 +49,7 @@ function ProductDetails() {
         );
     }
 
-    if (error || !product) {
+    if (error || !selectedProduct) {
         return (
             <Box sx={{ minHeight: "80vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
                 <Typography color="error">{error || "Product not found"}</Typography>
@@ -77,8 +79,8 @@ function ProductDetails() {
                                 }}>
                                     <Box
                                         component="img"
-                                        src={product.image}
-                                        alt={product.title}
+                                        src={selectedProduct.image}
+                                        alt={selectedProduct.title}
                                         sx={{
                                             height: 350,
                                             width: 350,
@@ -97,19 +99,19 @@ function ProductDetails() {
 
                         <Grid size={{ xs: 12, md: 7 }}>
                             <Typography variant="h4" sx={{ fontWeight: "bold", mb: 2 }}>
-                                {product.title}
+                                {selectedProduct.title}
                             </Typography>
 
                             <Typography sx={{ color: "#aaa", mb: 2 }}>
-                                {product.category}
+                                {selectedProduct.category}
                             </Typography>
 
                             <Typography variant="h5" sx={{ mb: 2 }}>
-                                ${product.price}
+                                ${selectedProduct.price}
                             </Typography>
 
                             <Typography sx={{ mb: 3, lineHeight: 1.8 }}>
-                                {product.description}
+                                {selectedProduct.description}
                             </Typography>
 
                             <Button variant="contained" size="large" onClick={handleAddtoCart}>

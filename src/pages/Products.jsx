@@ -12,30 +12,12 @@ import {
     CircularProgress,
 } from "@mui/material";
 import { useNavigate } from "react-router-dom";
-import  ProductCard  from "../components/ProductCard"
-import { getProducts } from "../firebase/service/productsService";
+import ProductCard from "../components/ProductCard"
+import { useSelector } from "react-redux";
 
 function Products() {
     const navigate = useNavigate();
-
-    const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [error, setError] = useState("");
-
-    useEffect(() => {
-        async function loadProducts() {
-            try {
-                const data = await getProducts();
-                setProducts(data);
-            } catch (err) {
-                setError(err.message);
-            } finally {
-                setLoading(false);
-            }
-        }
-
-        loadProducts();
-    }, []);
+    const { products, loading, error } = useSelector((state) => state.products);
 
     if (loading) {
         return (
@@ -53,6 +35,7 @@ function Products() {
         );
     }
 
+
     return (
         <Box sx={{ minHeight: "100vh", py: 6, backgroundColor: "#0b0b0b" }}>
             <Container maxWidth="lg">
@@ -62,7 +45,7 @@ function Products() {
 
                 <Grid container spacing={3}>
                     {products.map((product) => (
-                        <Grid size={{xs:12, sm:6, md:4}}  key={product.id}>
+                        <Grid size={{ xs: 12, sm: 6, md: 4 }} key={product.id}>
                             <ProductCard product={product} />
                         </Grid>
                     ))}

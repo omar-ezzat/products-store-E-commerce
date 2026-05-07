@@ -4,7 +4,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { Box, CircularProgress } from "@mui/material";
 
 import Layout from "./layout/Layout";
-import AuthObserver from "./components/authObserver";
+import AuthObserver from "./components/AuthObserver";
+import ProductsLoader from "./components/ProductsLoader";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminRoute from "./components/AdminRoute";
 const Home = lazy(() => import("./pages/Home"));
@@ -102,6 +103,7 @@ function App() {
   return (
     <>
       <AuthObserver />
+      <ProductsLoader />
       <Suspense fallback={<Loading />}>
         <RouterProvider router={router} />
       </Suspense>

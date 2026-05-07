@@ -22,6 +22,8 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 import ProductForm from "../../components/ProductsFrom";
 import { getProducts, seedProductsFromFakeApi, deleteProduct, addProduct, updateProduct } from "../../firebase/service/productsService";
+import { useDispatch } from "react-redux";
+import { fetchProducts } from "../../Redux/products/productsSlice";
 
 function ManageProducts() {
     const [products, setProducts] = useState([]);
@@ -30,8 +32,9 @@ function ManageProducts() {
     const [deletingId, setDeletingId] = useState(null);
     const [message, setMessage] = useState("");
     const [error, setError] = useState("");
-    const [selectedProduct, setSelectedProduct] = useState(null)
-    const [saving, setSaving] = useState(false)
+    const [selectedProduct, setSelectedProduct] = useState(null);
+    const [saving, setSaving] = useState(false);
+    const dispatch = useDispatch();
 
     const loadProducts = async () => {
         try {
@@ -61,6 +64,7 @@ function ManageProducts() {
 
             setMessage("Products imported successfully.");
             await loadProducts();
+            dispatch(fetchProducts())
         } catch (err) {
             setError(err.message);
         } finally {
@@ -81,9 +85,9 @@ function ManageProducts() {
             setMessage("");
 
             await deleteProduct(productId);
-
-            setProducts((prev) => prev.filter((product) => product.id !== productId));
             setMessage("Product deleted successfully.");
+            await loadProducts();
+            dispatch(fetchProducts())
         } catch (err) {
             setError(err.message);
         } finally {
@@ -107,6 +111,7 @@ function ManageProducts() {
 
             setSelectedProduct(null);
             await loadProducts();
+            dispatch(fetchProducts())
         } catch (err) {
             setError(err.message);
         } finally {
