@@ -221,7 +221,7 @@ function Checkout() {
                                 },
                             }}
                         >
-                            <StripeCheckoutForm totalPrice={totalPrice} />
+                            <CheckoutForm totalPrice={totalPrice} />
                         </Elements>
                     ) : (
                         <Typography color="error">
