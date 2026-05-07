@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import {
   removeFromCart,
@@ -20,6 +21,7 @@ import {
 
 function Cart() {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { cartItems } = useSelector((state) => state.cart);
 
   const totalPrice = cartItems.reduce(
@@ -156,9 +158,16 @@ function Cart() {
                 Total Price: ${totalPrice.toFixed(2)}
               </Typography>
 
-              <Button fullWidth variant="contained" sx={{ mb: 2 }}>
+              <Button
+                fullWidth
+                variant="contained"
+                sx={{ mb: 2 }}
+                disabled={cartItems.length === 0}
+                onClick={() => navigate("/checkout")}
+              >
                 Checkout
               </Button>
+
 
               <Button
                 fullWidth

@@ -18,6 +18,7 @@ const Products = lazy(() => import("./pages/Products"))
 const ProductDetails = lazy(() => import("./pages/ProductDetails"))
 const ManageProducts = lazy(() => import("./pages/admin/ManageProducts"))
 const ManageOrders = lazy(() => import("./pages/admin/ManageOrders"))
+const Checkout = lazy(() => import("./pages/Checkout"))
 
 const Loading = () => (
   <Box
@@ -94,6 +95,14 @@ const router = createBrowserRouter([
           </AdminRoute>
         ),
       },
+      {
+        path:"checkout",
+        element:(
+          <ProtectedRoute>
+            <Checkout/>
+          </ProtectedRoute>
+        )
+      }
 
     ],
   },
