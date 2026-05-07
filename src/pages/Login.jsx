@@ -13,7 +13,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import AuthLayout from "../components/AuthLayout";
 import { loginWithEmail, loginWithGoogle } from "../firebase/service/authService"
-import { setUser, setAuthLoading, setAuthError } from "../features/auth/authSlice";
+import { setUser, setAuthLoading, setAuthError } from "../Redux/auth/authSlice";
 import { createUserDocument } from '../firebase/service/userService';
 
 function Login() {
@@ -54,9 +54,9 @@ function Login() {
 
         try {
             const user = await loginWithEmail(formData);
-            console.log("tring to login     ",user);
+
             const userData = await createUserDocument(user)
-            console.log("tring to login     ",userData);
+
             dispatch(setUser(userData));
             navigate("/");
         } catch (error) {
@@ -107,7 +107,7 @@ function Login() {
             <Box component="form" onSubmit={handleLogin}>
                 {errorMessage && (
                     <Alert severity="error" sx={{ mb: 2 }}>
-                        {errorMessage }
+                        {errorMessage}
                     </Alert>
                 )}
 

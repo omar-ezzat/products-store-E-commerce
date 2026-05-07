@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { onAuthStateChanged } from "firebase/auth";
 
 import { auth } from "../firebase/firebaseConfig";
-import { setUser, clearUser } from "../features/auth/authSlice"
+import { setUser, clearUser } from "../Redux/auth/authSlice"
 import { getUserDocument } from "../firebase/service/userService";
 function AuthObserver() {
     const dispatch = useDispatch();

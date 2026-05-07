@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addToCart } from "../features/cart/cartSlice";
+import { addToCart } from "../Redux/cart/cartSlice";
 import { getProductById } from "../firebase/service/productsService";
 
 function ProductDetails() {
@@ -21,7 +21,7 @@ function ProductDetails() {
     const [error, setError] = useState("");
     const dispatch = useDispatch();
 
-    const handleAddtoCart = ()=>{
+    const handleAddtoCart = () => {
         dispatch(addToCart(product))
     }
     useEffect(() => {

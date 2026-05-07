@@ -21,7 +21,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { logoutUser } from "../firebase/service/authService";
-import { clearUser } from "../features/auth/authSlice";
+import { clearUser } from "../Redux/auth/authSlice";
 
 function Navbar() {
 

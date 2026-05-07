@@ -16,7 +16,7 @@ import {
   increaseQuantity,
   decreaseQuantity,
   clearCart,
-} from "../features/cart/cartSlice";
+} from "../Redux/cart/cartSlice";
 
 function Cart() {
   const dispatch = useDispatch();
@@ -68,35 +68,35 @@ function Cart() {
               >
                 <Grid container spacing={2} >
                   <Grid size={{ xs: 12, sm: 4 }} >
-                  <div>
+                    <div>
 
-                    <Box sx={{
+                      <Box sx={{
 
-                      backgroundColor: "white",
-                      borderRadius: 2,
-                      p: 1,
-                      display: "flex",
-                      justifyContent: "center",
-                      height: 190,
-                      maxWidth: 200,
-                      mx: "auto"
-                    }}>
-                      <Box
-                        component="img"
-                        src={item.image}
-                        alt={item.title}
-                        sx={{
-                          width: "100%",
-                          // height: 120,
-                          objectFit: "contain",
-                          backgroundColor: "white",
-                          borderRadius: 2,
-                          p: 1,
-                        }}
-                      />
+                        backgroundColor: "white",
+                        borderRadius: 2,
+                        p: 1,
+                        display: "flex",
+                        justifyContent: "center",
+                        height: 190,
+                        maxWidth: 200,
+                        mx: "auto"
+                      }}>
+                        <Box
+                          component="img"
+                          src={item.image}
+                          alt={item.title}
+                          sx={{
+                            width: "100%",
+                            // height: 120,
+                            objectFit: "contain",
+                            backgroundColor: "white",
+                            borderRadius: 2,
+                            p: 1,
+                          }}
+                        />
 
-                    </Box>
-                  </div>
+                      </Box>
+                    </div>
 
                   </Grid>
 
@@ -126,12 +126,12 @@ function Cart() {
                       >
                         +
                       </Button>
-                    <IconButton
-                      color="error"
-                      onClick={() => dispatch(removeFromCart(item.id))}
-                    >
-                      <DeleteIcon />
-                    </IconButton>
+                      <IconButton
+                        color="error"
+                        onClick={() => dispatch(removeFromCart(item.id))}
+                      >
+                        <DeleteIcon />
+                      </IconButton>
                     </Box>
                   </Grid>
 

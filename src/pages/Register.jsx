@@ -13,7 +13,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import AuthLayout from "../components/AuthLayout";
 import { registerWithEmail, loginWithGoogle } from "../firebase/service/authService"
-import { setUser, setAuthLoading, setAuthError } from "../features/auth/authSlice";
+import { setUser, setAuthLoading, setAuthError } from "../Redux/auth/authSlice";
 import { createUserDocument } from '../firebase/service/userService';
 
 
