@@ -120,7 +120,6 @@ function Login() {
                     value={formData.email}
                     onChange={handleChange}
                     required
-                    InputLabelProps={{ style: { color: "#ffffff" } }}
                     sx={{
                         "& .MuiInputLabel-root": {
                             color: "#aaa",
