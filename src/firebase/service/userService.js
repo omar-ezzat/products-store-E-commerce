@@ -12,10 +12,8 @@ const formatUserData = (userData) => {
 
 export const createUserDocument = async (user, extraData = {}) => {
   if (!user) return null;
-
   const userRef = doc(db, "users", user.uid);
   const userSnap = await getDoc(userRef);
-
   if (!userSnap.exists()) {
     const userData = {
       uid: user.uid,
@@ -26,9 +24,7 @@ export const createUserDocument = async (user, extraData = {}) => {
       createdAt: serverTimestamp(),
       ...extraData,
     };
-
     await setDoc(userRef, userData);
-
     return {
       ...userData,
       createdAt: null,

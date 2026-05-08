@@ -34,7 +34,7 @@ export const loginWithEmail = async ({ email, password }) => {
 
 export const loginWithGoogle = async () => {
   const userCredential = await signInWithPopup(auth, googleProvider);
-
+  
   return userCredential.user;
 };
 
